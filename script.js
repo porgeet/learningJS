@@ -93,3 +93,7 @@ isMarried = true;
 if (isMarried){
     console.log('YES!');
 }
+
+if (23 == "23"){
+	console.log('Something to print...');
+}
