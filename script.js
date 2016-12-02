@@ -130,26 +130,117 @@ alert(name + ' is a ' + age + ' years old ' + job + '. Is he married? ' + isMarr
 ///////////////////////////////////////////////////
 // CODING CHALLENGE 1
 
-var johnHeight = 159,
-	johnAge = 26;
+// var johnHeight = 159,
+// 	johnAge = 26;
 
-var craigHeight = 159,
-	craigAge = 26;
+// var craigHeight = 159,
+// 	craigAge = 26;
 
-var cecilHeight = 159,
-	cecilAge = 26;
+// var cecilHeight = 159,
+// 	cecilAge = 26;
 
-var johnScore = johnHeight + johnAge * 5,
-	craigScore = craigHeight + craigAge * 5,
-	cecilScore = cecilHeight + cecilAge * 5;
+// var johnScore = johnHeight + johnAge * 5,
+// 	craigScore = craigHeight + craigAge * 5,
+// 	cecilScore = cecilHeight + cecilAge * 5;
 
-if(johnScore > craigScore && johnScore > cecilScore){
-	console.log("John wins with a score of " + johnScore + ".");
-} else if (cecilScore > craigScore && cecilScore > johnScore){
-	console.log("Cecil wins with a score of " + cecilScore + ".");
-} else if (craigScore > cecilScore && craigScore > johnScore){
-	console.log("Craig wins with a score of " + craigScore + ".");
-} else {
-	console.log("Holy shit, it's a draw! John has a score of " + johnScore + " and Cecil has a score of " + cecilScore + " aaaand Craig has a score of " + craigScore + "! What are the odds?");
+// if(johnScore > craigScore && johnScore > cecilScore){
+// 	console.log("John wins with a score of " + johnScore + ".");
+// } else if (cecilScore > craigScore && cecilScore > johnScore){
+// 	console.log("Cecil wins with a score of " + cecilScore + ".");
+// } else if (craigScore > cecilScore && craigScore > johnScore){
+// 	console.log("Craig wins with a score of " + craigScore + ".");
+// } else {
+// 	console.log("Holy shit, it's a draw! John has a score of " + johnScore + " and Cecil has a score of " + cecilScore + " aaaand Craig has a score of " + craigScore + "! What are the odds?");
+// }
+
+///////////////////////////////////////////////////
+// Lecture: Functions
+
+// function calculateAge(yearOfBirth) {
+// 	var age = 2016 - yearOfBirth;
+// 	return age;
+// }
+
+// var ageJohn = calculateAge(1986);
+// var agePete = calculateAge(1946);
+// var ageSarah = calculateAge(2000);
+
+// function yearsUntilRetirement(name, year) {
+// 	var age = calculateAge(year);
+// 	var retirement = 65 - age;
+// 	if (retirement >= 0){
+// 		console.log(name + " retires in " + retirement + " years");
+// 	}else{
+// 		console.log(name + " has already retired.");
+// 	}
+// }
+
+// yearsUntilRetirement ('John', 1990);
+// yearsUntilRetirement ('Mike', 1969);
+// yearsUntilRetirement ('Mary', 1948);
+
+///////////////////////////////////////////////////
+// Lecture: Statements and expressions
+
+//function statment
+// function someFun(par){
+// 	//code
+// }
+
+// //function expression
+// var someFun = function(par){
+// 	//code
+// }
+
+// //Expressions - produce a value
+// 3 + 4;
+// var x = 3;
+
+// //Statments - perform and action
+// if (x === 5){
+// 	//do something
+// }
+
+
+///////////////////////////////////////////////////
+// Lecture: Arrays
+
+var names = ["John", "Jane", "Mark"];
+var years = new Array(1990, 1969, 1948);
+
+console.log(names[2]);
+
+names[1] = "Ben"
+
+console.log(names);
+
+var john = ["John", "Smith", 1990, "Designer", false];
+
+john.push("Blue");
+john.unshift("Mr");
+john.pop();
+john.shift();
+
+console.log(john);
+
+if (john.indexOf("Teacher") === -1){
+	console.log("John is not a teacher");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
