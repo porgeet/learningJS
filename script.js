@@ -205,37 +205,209 @@ alert(name + ' is a ' + age + ' years old ' + job + '. Is he married? ' + isMarr
 ///////////////////////////////////////////////////
 // Lecture: Arrays
 
-var names = ["John", "Jane", "Mark"];
-var years = new Array(1990, 1969, 1948);
+// var names = ["John", "Jane", "Mark"];
+// var years = new Array(1990, 1969, 1948);
 
-console.log(names[2]);
+// console.log(names[2]);
 
-names[1] = "Ben"
+// names[1] = "Ben"
 
-console.log(names);
+// console.log(names);
 
-var john = ["John", "Smith", 1990, "Designer", false];
+// var john = ["John", "Smith", 1990, "Designer", false];
 
-john.push("Blue");
-john.unshift("Mr");
-john.pop();
-john.shift();
+// john.push("Blue");
+// john.unshift("Mr");
+// john.pop();
+// john.shift();
 
-console.log(john);
+// console.log(john);
 
-if (john.indexOf("Teacher") === -1){
-	console.log("John is not a teacher");
+// /* if indexOf method doesn't find the argument in a 
+// given array john in this case, then it will return -1
+// */
+// if (john.indexOf("Teacher") === -1){
+// 	console.log("John is not a teacher");
+// }
+
+
+///////////////////////////////////////////////////
+// Lecture: Objects
+
+//object literal
+// var john = {
+// 	name: "John",
+// 	lastName: "Smith",
+// 	yearOfBirth: 1990,
+// 	job: "Teacher",
+// 	isMarried: false
+// };
+
+// console.log(john.lastName);
+// console.log(john["lastName"]);
+
+// var xyz = "job";
+// console.log(john[xyz]);
+
+// john.lastName = "Miller";
+// john["job"] = "Programmer";
+
+// console.log(john);
+
+
+
+
+// var jane = new Object();
+
+// //declaring values via mutation
+// jane.name = "Jane";
+// jane.lastName = "Smith";
+// jane["yearOfBirth"] = 1969;
+// jane["job"] = "retired";
+// jane["isMarried"] = true;
+
+// console.log(jane);
+
+///////////////////////////////////////////////////
+// Lecture: Objects and Methods
+
+//v 1.0
+// var john = {
+// 	name: "John",
+// 	lastName: "Smith",
+// 	yearOfBirth: 1990,
+// 	job: "Teacher",
+// 	isMarried: false,
+// 	family: ["Jane", "Mark", "Bob"],
+// 	calculateAge: function() {
+// 		return 2016 - this.yearOfBirth;
+// 	}
+// };
+
+//v2.0
+// var john = {
+// 	name: "John",
+// 	lastName: "Smith",
+// 	yearOfBirth: 1990,
+// 	job: "Teacher",
+// 	isMarried: false,
+// 	family: ["Jane", "Mark", "Bob"],
+// 	calculateAge: function() {
+// 		//return 2016 - this.yearOfBirth;
+// 		this.age = 2016 - this.yearOfBirth;	
+// 	}
+// };
+
+// QUESTION POSTED ON UDEMY. 
+// Not sure why they both log john with age property
+// console.log(john);
+// john.calculateAge();
+// console.log(john);
+
+// var mike = {
+// 	name: "Mike",
+// 	yearOfBirth: 1950,
+// 	calculateAge: function() {
+// 		//return 2016 - this.yearOfBirth;
+// 		this.age = 2016 - this.yearOfBirth;	
+// 	}
+// };
+
+// mike.calculateAge();
+// console.log(mike);
+
+// console.log(john.calculateAge());
+// var age = john.calculateAge();
+// john.age = age;
+
+// console.log(john);
+
+///////////////////////////////////////////////////
+// Lecture: Loops
+
+// for (var i = 0; i < 10; i++){
+// 	console.log(i);
+// }
+
+
+/*
+0, true, print 0, update i to 1
+1, true, print 1, update i to 2
+.
+.
+.
+9, true, print 9, update i to 10
+10, FALSE, end loop
+*/
+
+
+// var names = ["John", "Jane", "Mary", "Mark", "Bob"];
+/*
+//for loops
+for (var i = 0; i < names.length; i++){
+	console.log(names[i]);
 }
 
+for (var i = names.length - 1; i >= 0; i--){
+	console.log(names[i]);
+}
+*/
+
+//while loops
+// var i = 0
+// while(i < names.length){
+// 	console.log(names[i]);
+// 	i++
+// }
+
+// for (i = 1; i <= 5; i++){
+// 	console.log(i);
+
+// 	if(i === 3){
+// 		break;
+// 	}
+// }
+
+// for (i = 1; i <= 5; i++){
+
+// 	if(i === 3){
+// 		continue;
+// 	}
+
+// 	console.log(i);
+// }
+
+///////////////////////////////////////////////////
+// CODING CHALLENGE 2
+
+//1
+var years = [1990, 1999, 1986];
 
 
+//5
+function printFullAge(yearsArg){
+	var ageArray = [];
+	var fullAges = [];
 
+	for(i = 0; i < yearsArg.length; i++){
+		ageArray[i] = 2016 - yearsArg[i];
+	}
 
+	for (i = 0; i < ageArray.length; i++){
+		if (ageArray[i] >= 18){
+			fullAges.push(true);
+			console.log("Person " + (i + 1) + " is " + ageArray[i] + " years old and is of full age!");
 
+		} else {
+			console.log("Person " + (i + 1) + " is " + ageArray[i] + " years old and is NOT of full age!");
+			fullAges.push(false);
+		}
+	}
+	return fullAges;
+}
 
-
-
-
+var full_1 = printFullAge(years);
+var full_2 = printFullAge([2000, 1920, 2012, 1915, 1999]);
 
 
 
