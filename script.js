@@ -300,6 +300,7 @@ alert(name + ' is a ' + age + ' years old ' + job + '. Is he married? ' + isMarr
 
 // QUESTION POSTED ON UDEMY. 
 // Not sure why they both log john with age property
+
 // console.log(john);
 // john.calculateAge();
 // console.log(john);
