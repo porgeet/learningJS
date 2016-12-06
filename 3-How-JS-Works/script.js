@@ -165,6 +165,7 @@ function first() {
 // var age = 19;
 
 // function foo(){
+//     console.log(age);
 //     var age = 23;
 //     console.log(age + age);//46
 // }
@@ -175,6 +176,9 @@ function first() {
 // chain for a var of that name, so in the example above
 // if 'age' is not defined in 'foo' then 'foo' will
 // console log 19 as 'foo' is lexically nested in the global scope
+// also if there is an age of that name inside the function the
+// first log will be undefined as the variable is declared but not
+// instantiated with an age value, so will default to undefined
 
 
 
