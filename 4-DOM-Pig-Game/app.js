@@ -19,7 +19,7 @@ GAME RULES:
 // Read from the DOM
 // Change CSS styles
 
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying, currentDice, prevDice = 0;
 
 init();
 
@@ -41,12 +41,14 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 		var diceDOM = document.querySelector('.dice'); 
 		diceDOM.style.display = 'block';
 		diceDOM.src = 'dice-' + dice + '.png';
-
+		
 		//3. update the score IF the rolled number was NOT a 1
 		if(dice !== 1){
+			currentDice = dice;
 			// Add score
 			roundScore += dice;
 			document.querySelector('#current-' + activePlayer).textContent = roundScore;
+			diceCheck();
 		} else {
 			// Next player
 			nextPlayer();
@@ -58,13 +60,18 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 
 document.querySelector('.btn-hold').addEventListener('click', function() {
 	if(gamePlaying){
+
+		// set dice counter var to 0
+		console.log('hold');
+		prevDice = 0;
+		console.log('held ' + prevDice);
 		// Add current score to global score
 		scores[activePlayer] += roundScore;
 		// Update the UI
 		document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 		// Check if player won the game
 
-		if(scores[activePlayer] >= 20) {
+		if(scores[activePlayer] >= 100) {
 			document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
 			document.querySelector('.dice').style.display = 'none';
 			document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
@@ -126,3 +133,25 @@ function nextPlayer(){
 // Lecture 6
 // What a state variable is, how to use it and why
 
+function diceCheck(){
+
+	if(currentDice !== 6){
+		prevDice = 0;
+		console.log(prevDice);
+		console.log('player-' + (activePlayer + 1) + ' ' + scores[activePlayer]);
+	} else {
+		prevDice += 6;
+		console.log(prevDice);
+	}
+
+	if(prevDice === 12){
+		console.log('Condition met');
+		prevDice = 0;
+		
+		// reset global score for active player
+		scores[activePlayer] = 0;
+		document.getElementById('score-' + activePlayer).textContent = '0';
+		// switch plater
+		nextPlayer();
+	}
+}
