@@ -140,6 +140,16 @@ i {
 .btn-new { top: 45px;}
 .btn-roll { top: 403px;}
 .btn-hold { top: 467px;}
+.btn-score { top: 531px; }
+
+#score-limit {
+    border: solid 1px #EB4D4D;
+    position: absolute;
+    left: 35%;
+    height: 25px;
+    transform: translateX(-50%);
+    top:  531px;
+}
 
 .dice {
     position: absolute;

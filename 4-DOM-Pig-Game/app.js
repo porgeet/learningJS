@@ -19,8 +19,7 @@ GAME RULES:
 // Read from the DOM
 // Change CSS styles
 
-var scores, roundScore, activePlayer, gamePlaying, currentDice, prevDice = 0;
-
+var scores, roundScore, activePlayer, gamePlaying, currentDice, prevDice = 0, limit = 20;
 init();
 
 // Lecture 2
@@ -62,16 +61,14 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 	if(gamePlaying){
 
 		// set dice counter var to 0
-		console.log('hold');
 		prevDice = 0;
-		console.log('held ' + prevDice);
 		// Add current score to global score
 		scores[activePlayer] += roundScore;
 		// Update the UI
 		document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 		// Check if player won the game
 
-		if(scores[activePlayer] >= 100) {
+		if(scores[activePlayer] >= limit) {
 			document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
 			document.querySelector('.dice').style.display = 'none';
 			document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
@@ -133,21 +130,28 @@ function nextPlayer(){
 // Lecture 6
 // What a state variable is, how to use it and why
 
+document.querySelector('.btn-score').addEventListener('click', setScore);
+
+function setScore() {
+	if(document.querySelector('#score-limit').value !== ""){
+		console.log('This bit works');
+		limit = parseInt(document.querySelector('#score-limit').value);
+	}else{
+		alert('Set a score limit');
+	}
+}
+
 function diceCheck(){
 
 	if(currentDice !== 6){
 		prevDice = 0;
-		console.log(prevDice);
-		console.log('player-' + (activePlayer + 1) + ' ' + scores[activePlayer]);
 	} else {
 		prevDice += 6;
-		console.log(prevDice);
 	}
 
 	if(prevDice === 12){
-		console.log('Condition met');
 		prevDice = 0;
-		
+
 		// reset global score for active player
 		scores[activePlayer] = 0;
 		document.getElementById('score-' + activePlayer).textContent = '0';
