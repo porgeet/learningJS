@@ -143,13 +143,25 @@ i {
 .btn-score { top: 531px; }
 
 #score-limit {
-    border: solid 1px #EB4D4D;
     position: absolute;
-    left: 35%;
-    height: 25px;
+    top:  520px;
+    width: 160px;
+    left: 50%;
     transform: translateX(-50%);
-    top:  531px;
+    color: #555;
+    font-size: 18px;
+    font-family: "Lato";
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px;
 }
+
+#score-limit:focus {
+    outline: none;
+}
+
+#dice-1 { top: 120px; }
+#dice-2 { top: 250px; }
 
 .dice {
     position: absolute;
