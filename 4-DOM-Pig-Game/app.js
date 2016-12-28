@@ -81,8 +81,6 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 document.querySelector('.btn-hold').addEventListener('click', function() {
 	if(gamePlaying){
 
-		// set dice counter var to 0
-		prevDice = 0;
 		// Add current score to global score
 		scores[activePlayer] += roundScore;
 		// Update the UI
