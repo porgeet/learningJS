@@ -175,6 +175,7 @@ console.log(ages);
 //////////////////////////////////////////////////////
 // Lecture: Functions returning functions
 
+/*
 function interviewQuestion(job){
 	if(job === "designer"){
 		return function(name) {
@@ -190,13 +191,96 @@ function interviewQuestion(job){
 
 }
 
+// Var === the returned result of interview question being passed
+// teacher as an argument. The returned result is a function
 var teacherQuestion = interviewQuestion("teacher");
+//  Same for designer
 var designerQuestion = interviewQuestion("designer");
 
+// The teacherQuestion var now === a function that accepts a name
+// and outputs a console log appropriate to a teacher
+teacherQuestion("John");
+// Same for designer
 designerQuestion("John");
 designerQuestion("Craig");
 designerQuestion("Pete");
 designerQuestion("James");
-teacherQuestion("John");
 
+// The above can be replicated in one single step starting from
+// the parent interviewQuestion, as argument blocks are evaluated
+// from left to right, the result from the teacher argument is
+// a returned function that accepts a name argument, the below
+// will also console log appropriate to teacher
 interviewQuestion("teacher")("Doreen");
+*/
+
+//////////////////////////////////////////////////////
+// Lecture: IIFE Immediately Invoked Function Expressions
+
+/*
+// Trick the parser into thinking the function is an expression
+// rather than a declaration by wrapping it in parenthesis, the scope
+// of the score variable is then only accessable to the unnamed IIFE
+// Anything wrapped in paranthesis cannot be a statement
+(function() {
+	var score = Math.random() * 10;
+	console.log(score >= 5);
+})();
+
+// console.log(score); // Score is unavailable to scope outsite the IIFE
+
+(function(goodLuck) {
+	var score = Math.random() * 10;
+	console.log(score >= 5 - goodLuck);
+})(5);
+*/
+
+//////////////////////////////////////////////////////
+// Lecture: Closures
+
+function retirement(retirementAge) {
+	var a = " years left until retirement";
+	return function(yearOfBirth){
+		var age = 2016 - yearOfBirth;
+		console.log((retirementAge - age) + a);
+	}
+}
+
+var retirementUS = retirement(66);
+var retirementGermany = retirement(65);
+var retirementIceland = retirement(67);
+
+retirementUS(1990);
+retirementGermany(1990);
+retirementIceland(1990);
+
+
+function interviewQuestion(job){
+	return function(name){
+		if(job === "designer"){
+			console.log(name + ", can you please explain what UX design is?");
+		} else if(job === "teacher"){
+			console.log("What subject to you teach " + name + "?");
+		} else {
+			console.log("What IS YOUR JOB " + name + "?");
+		}
+	}
+}
+
+interviewQuestion("teacher")("John");
+/*
+function interviewQuestion(job){
+	if(job === "designer"){
+		return function(name) {
+			console.log(name + ", can you please explain what UX design is?");
+		}
+	} else if(job === "teacher"){
+		return function(name) {
+			console.log("What subject to you teach " + name + "?");
+		}
+	} else {
+		console.log("Hello " + name + "What subject to you teach ");
+	}
+
+}
+*/
