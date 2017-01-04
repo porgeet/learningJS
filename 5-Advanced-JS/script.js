@@ -191,7 +191,7 @@ function interviewQuestion(job){
 
 }
 
-// Var === the returned result of interview question being passed
+// The below var === the returned result of interviewQuestion() being passed
 // teacher as an argument. The returned result is a function
 var teacherQuestion = interviewQuestion("teacher");
 //  Same for designer
@@ -262,25 +262,53 @@ function interviewQuestion(job){
 		} else if(job === "teacher"){
 			console.log("What subject to you teach " + name + "?");
 		} else {
-			console.log("What IS YOUR JOB " + name + "?");
+			console.log("What Is your job " + name + "?");
 		}
 	}
 }
 
+// Closure means that the anonymous function returned by interviewQuestion()
+// has access to the job argument and can then use it in the if logic
 interviewQuestion("teacher")("John");
-/*
-function interviewQuestion(job){
-	if(job === "designer"){
-		return function(name) {
-			console.log(name + ", can you please explain what UX design is?");
-		}
-	} else if(job === "teacher"){
-		return function(name) {
-			console.log("What subject to you teach " + name + "?");
-		}
-	} else {
-		console.log("Hello " + name + "What subject to you teach ");
-	}
 
+//////////////////////////////////////////////////////
+// Lecture: Bind, Call & Apply
+
+var john ={
+	name: "John",
+	age: 26,
+	job: "teacher",
+	presentation: function(style, timeOfDay){
+		if (style === "formal"){
+			console.log("Good " + timeOfDay + " ladies and gentlemen, I'm " + this.name + " I'm a " + this.job + " and I'm " + this.age + " years old.");
+		} else if (style === "friendly"){
+			console.log("Hey! What's up? I'm " + this.name + " and I'm " + this.age + " years old. Have a nice " + timeOfDay);
+		}
+	}
 }
-*/
+
+var emily ={
+	name: "emily",
+	age: 35,
+	job: "designer"
+}
+
+john.presentation("friendly", "afternoon");
+john.presentation.call
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
