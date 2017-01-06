@@ -377,27 +377,38 @@ c) correct answer (I would use a number for this)
 */
 
 function question(){
-	var questions = {
-		0: "Is JS badass?", 
-		1: "Is Breaking Bad badass?", 
-		2: "Is the Mondragon the best medic gun?", 
-		3: "Who is the best programmer in the world?"
-	};
-
-	var answers = [
-		["Yes", "No"],
-		["Yes", "No"],
-		["Yes", "No"],
-		["Mark Zuckerberg", "Pete", "Bisqwit"]
-	];
-
-	var rand = Math.floor(Math.random() * 4);
-	console.log(questions.0);
-	console.log(rand);
-
+	var questions = [ 
+			"Is JavaScript the coolest language in the world?",
+			"Who is the best programmer in the world?",
+			"What is the best medic gun in Battlefield 1?",
+			"What is programming?"
+	],
+		answers = [ 
+			"Yes",
+			"No",
+			"Mark Zuckerberg",
+			"Pete",
+			"Bizqwit",
+			"Bill Gates",
+			"Mondragon",
+			"The Other Ones",
+			"Boring",
+			"Fun",
+			"Tedious"
+		],
+		randomNumber = Math.floor(Math.random() * questions.length);
 	
-}
+	console.log(questions[randomNumber]);
 
+	function answersAssign(qArr){
+		for (i=0; i<qArr.length; i++){
+			
+		}
+	}	
+
+	console.log(answers);
+
+}
 question();
 
 
