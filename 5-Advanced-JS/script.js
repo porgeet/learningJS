@@ -376,31 +376,26 @@ c) correct answer (I would use a number for this)
 7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interfere with the other programmers code (Hint: we learned a special technique to do exactly that).
 */
 
+var questions = {
+		questionsArray: [
+						"Is JS the best programming language in the world?",
+						"Who is the bes programmer in the world?",
+						"What is the best medic gun in BF1?",
+						"Is programming cool?"
+						],
+		randomSelect: function(){
+			var random = Math.floor(Math.random() * questionsArray.length);
+			console.log(random);
+			console.log(questionsArray[random]+1);
+		}
+	}
+
 function question(){
-	var questions = {
-		0: "Is JS badass?", 
-		1: "Is Breaking Bad badass?", 
-		2: "Is the Mondragon the best medic gun?", 
-		3: "Who is the best programmer in the world?"
-	};
-
-	var answers = [
-		["Yes", "No"],
-		["Yes", "No"],
-		["Yes", "No"],
-		["Mark Zuckerberg", "Pete", "Bisqwit"]
-	];
-
-	var rand = Math.floor(Math.random() * 4);
-	console.log(questions.0);
-	console.log(rand);
-
 	
+	questions.randomSelect();
 }
 
 question();
-
-
 
 
 
