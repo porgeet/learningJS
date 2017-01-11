@@ -377,39 +377,93 @@ c) correct answer (I would use a number for this)
 */
 
 
-function question(){
-	var questions = [ 
-			"Is JavaScript the coolest language in the world?",
-			"Who is the best programmer in the world?",
-			"What is the best medic gun in Battlefield 1?",
-			"What is programming?"
-	],
-		answers = [ 
-			"Yes",
-			"No",
-			"Mark Zuckerberg",
-			"Pete",
-			"Bizqwit",
-			"Bill Gates",
-			"Mondragon",
-			"The Other Ones",
-			"Boring",
-			"Fun",
-			"Tedious"
-		],
-		randomNumber = Math.floor(Math.random() * questions.length);
-	
-	console.log(questions[randomNumber]);
+(function(){
+	var Question = function(q){
+		this.q = console.log(q);
+		var loop = 0;
+		switch(random){
+			case 0 : 
+				for(i = 0; i <= 1; i++){
+					loop++
+					console.log((loop - 1) + ": " + answers[i]);
+				}; 
 
-	function answersAssign(qArr){
-		for (i=0; i<qArr.length; i++){
-			
+				ask(); 
+
+				if(answer === 0){
+					console.log("Correct! Well done");
+				} else {
+					console.log("Sorry, incorrect");
+				} 
+				break;
+
+			case 1 : 
+				for(i = 2; i <= 5; i++){
+					loop++
+					console.log((loop - 1) + ": " + answers[i]);
+				}; 
+
+				ask();
+
+				if(answer === 1){
+					console.log("Correct! Well done");
+				} else {
+					console.log("Sorry, incorrect");
+				} 
+				break;
+
+			case 2 : 
+				for(i = 6; i <= 7; i++){
+					loop++
+					console.log((loop - 1) + ": " + answers[i]);
+				}; 
+
+				ask(); 
+
+				if(answer === 0){
+					console.log("Correct! Well done");
+				} else {
+					console.log("Sorry, incorrect");
+				} 
+				break;
+
+			case 3 :
+				for(i = 8; i <= 10; i++){
+					loop++
+					console.log((loop - 1) + ": " + answers[i]);
+				}; 
+
+				ask(); 
+
+				if(answer === 1){
+					console.log("Correct! Well done");
+				} else {
+					console.log("Sorry, incorrect");
+				} 
+				break;
 		}
-	}	
+	}
 
-	console.log(answers);
-}
-question();
+	function ask(){
+		answer = parseInt(prompt("Type the number of the correct answer"));
+	}
+
+	var questions = [ 
+				"Is JavaScript the coolest language in the world?",
+				"Who is the best programmer in the world?",
+				"What is the best medic gun in Battlefield 1?",
+				"What is programming?"
+				];
+	var	answers = ["Yes", "No", "Mark Zuckerberg", "Pete", "Bizqwit", "Bill Gates", "Mondragon", "The Other Ones", "Boring", "Fun", "Tedious"];
+	var random = Math.floor(Math.random() * questions.length);
+
+	var answer;
+	var question = new Question(questions[random]);
+})();
+
+
+
+	
 
 
 
@@ -429,10 +483,28 @@ question();
 */
 
 
+/*
+var questions = [ 
+			"Is JavaScript the coolest language in the world?",
+			"Who is the best programmer in the world?",
+			"What is the best medic gun in Battlefield 1?",
+			"What is programming?"
+	],
+		answers = [ 
+			"Yes",
+			"No",
+			"Mark Zuckerberg",
+			"Pete",
+			"Bizqwit",
+			"Bill Gates",
+			"Mondragon",
+			"The Other Ones",
+			"Boring",
+			"Fun",
+			"Tedious"
+		],
 
-
-
-
+*/
 
 
 
