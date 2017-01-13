@@ -477,12 +477,31 @@ Question.prototype.displayQuestion = function(){
 	}
 }
 
-Question.prototype.checkAnswer = function(ans){
-	if(ans === this.correct){
+Question.prototype.checkAnswer = function(ans, ansNum){
+	if(ansNum === this.correct){
 		console.log("Correct answer!");
+		nextQuestion();
+	} else if(ans === "exit"){
+		console.log("You exited");
 	} else {
 		console.log("Wrong answer, try again :)");
+		nextQuestion();
 	}
+	
+}
+
+function nextQuestion() {
+
+	var n2 = Math.floor(Math.random() * questions.length);
+
+	questions[n2].displayQuestion();
+
+	// var newAnswer = parseInt(prompt("Please select the correct answer"));
+	var newAnswer = prompt("Please select the correct answer");
+
+	var newAnswerNumber = parseInt(newAnswer);
+	
+	questions[n2].checkAnswer(newAnswer, newAnswerNumber);
 }
 
 var q1 = new Question("Is JavaScript the coolest programming language in the world?", ["Yes", "No"], 0);
@@ -497,9 +516,11 @@ var n = Math.floor(Math.random() * questions.length);
 
 questions[n].displayQuestion();
 
-var answer = parseInt(prompt("Please select the correct answer"));
+var answer = prompt("Please select the correct answer");
 
-questions[n].checkAnswer(answer);
+var answerNumber = parseInt(answer);
+
+questions[n].checkAnswer(answer, answerNumber);
 })();
 
 
@@ -514,6 +535,8 @@ questions[n].checkAnswer(answer);
 
 11. Display the score in the console. Use yet another method for this.
 */
+
+
 
 
 /*
