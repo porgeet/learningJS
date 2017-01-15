@@ -463,43 +463,44 @@ c) correct answer (I would use a number for this)
 */
 
 
-(function(){function Question(question, answers, correct) {
-	this.question = question;
-	this.answers = answers;
-	this.correct = correct;
-}
-
-Question.prototype.displayQuestion = function(){
-	console.log(this.question);
-
-	for(i=0; i <this.answers.length; i++){
-		console.log(i + ": " + this.answers[i]);
+(function(){
+	function Question(question, answers, correct) {
+		this.question = question;
+		this.answers = answers;
+		this.correct = correct;
 	}
-}
 
-Question.prototype.checkAnswer = function(ans){
-	if(ans === this.correct){
-		console.log("Correct answer!");
-	} else {
-		console.log("Wrong answer, try again :)");
+	Question.prototype.displayQuestion = function(){
+		console.log(this.question);
+
+		for(i=0; i < this.answers.length; i++){
+			console.log(i + ": " + this.answers[i]);
+		}
 	}
-}
 
-var q1 = new Question("Is JavaScript the coolest programming language in the world?", ["Yes", "No"], 0);
+	Question.prototype.checkAnswer = function(ans){
+		if(ans === this.correct){
+			console.log("Correct answer!");
+		} else {
+			console.log("Wrong answer, try again :)");
+		}
+	}
 
-var q2 = new Question("What is the name of this course's teacher?", ["John", "Michael", "Jonas"], 2);
+	var q1 = new Question("Is JavaScript the coolest programming language in the world?", ["Yes", "No"], 0);
 
-var q3 = new Question("What does best describe coding?", ["Boring", "Hard", "Fun", "Tedious"], 2);
+	var q2 = new Question("What is the name of this course's teacher?", ["John", "Michael", "Jonas"], 2);
 
-var questions = [q1, q2, q3];
+	var q3 = new Question("What does best describe coding?", ["Boring", "Hard", "Fun", "Tedious"], 2);
 
-var n = Math.floor(Math.random() * questions.length);
+	var questions = [q1, q2, q3];
 
-questions[n].displayQuestion();
+	var n = Math.floor(Math.random() * questions.length);
 
-var answer = parseInt(prompt("Please select the correct answer"));
+	questions[n].displayQuestion();
 
-questions[n].checkAnswer(answer);
+	var answer = parseInt(prompt("Please select the correct answer"));
+
+	questions[n].checkAnswer(answer);
 })();
 
 
