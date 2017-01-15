@@ -478,50 +478,60 @@ c) correct answer (I would use a number for this)
 		}
 	}
 
-Question.prototype.checkAnswer = function(ans, ansNum){
-	if(ansNum === this.correct){
-		console.log("Correct answer!");
-		nextQuestion();
-	} else if(ans === "exit"){
-		console.log("You exited");
-	} else {
-		console.log("Wrong answer, try again :)");
-		nextQuestion();
+	Question.prototype.checkAnswer = function(ans){
+		if(parseInt(ans) === this.correct){
+			
+			console.log("Correct answer!");
+			score ++
+			showScore();
+			nextQuestion();
+			
+		
+		} else if(ans === "exit"){
+		
+			console.log("You exited");
+		
+		} else {
+		
+			console.log("Wrong answer, try again :)");
+			showScore();
+			nextQuestion();
+		
+		}
+		
 	}
-	
-}
 
-function nextQuestion() {
+	function showScore() {
 
-	var n2 = Math.floor(Math.random() * questions.length);
+		console.log("Your current score is: "+ score);
+		console.log("---------------------");
+		
+	}
 
-	questions[n2].displayQuestion();
+	function nextQuestion() {
 
-	// var newAnswer = parseInt(prompt("Please select the correct answer"));
-	var newAnswer = prompt("Please select the correct answer");
+		var n2 = Math.floor(Math.random() * questions.length);
 
-	var newAnswerNumber = parseInt(newAnswer);
-	
-	questions[n2].checkAnswer(newAnswer, newAnswerNumber);
-}
+		questions[n2].displayQuestion();
+
+		var newAnswer = prompt("Please select the correct answer");
+		
+		questions[n2].checkAnswer(newAnswer);
+
+	}
 
 	var q1 = new Question("Is JavaScript the coolest programming language in the world?", ["Yes", "No"], 0);
-
 	var q2 = new Question("What is the name of this course's teacher?", ["John", "Michael", "Jonas"], 2);
-
 	var q3 = new Question("What does best describe coding?", ["Boring", "Hard", "Fun", "Tedious"], 2);
-
+	var score = 0;
 	var questions = [q1, q2, q3];
-
 	var n = Math.floor(Math.random() * questions.length);
-
+	
 	questions[n].displayQuestion();
 
-var answer = prompt("Please select the correct answer");
+	var answer = prompt("Please select the correct answer");
 
-var answerNumber = parseInt(answer);
-
-questions[n].checkAnswer(answer, answerNumber);
+	questions[n].checkAnswer(answer);
 
 })();
 
@@ -536,32 +546,6 @@ questions[n].checkAnswer(answer, answerNumber);
 10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to the score (Hint: I'm going to use the power of closures for this, but you don't have to, just do this with the tools you feel more comfortable at this point).
 
 11. Display the score in the console. Use yet another method for this.
-*/
-
-
-
-
-/*
-var questions = [ 
-			"Is JavaScript the coolest language in the world?",
-			"Who is the best programmer in the world?",
-			"What is the best medic gun in Battlefield 1?",
-			"What is programming?"
-	],
-		answers = [ 
-			"Yes",
-			"No",
-			"Mark Zuckerberg",
-			"Pete",
-			"Bizqwit",
-			"Bill Gates",
-			"Mondragon",
-			"The Other Ones",
-			"Boring",
-			"Fun",
-			"Tedious"
-		],
-
 */
 
 
