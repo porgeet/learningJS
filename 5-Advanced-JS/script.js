@@ -592,13 +592,14 @@ c) correct answer (I would use a number for this)
     
     var questions = [q1, q2, q3];
     
+    // score() function keeps everything related to the score in one place, so there are no mutating global variables in the code, clean
     function score() {
         var sc = 0; // sc variable only available in this scope but available in the keepScore var below because of closures
         return function(correct) {
             if (correct) {
-                sc++;
+                sc++; // variable mutates only if the this returned function receives a true value
             }
-            return sc; // the value of sc is returned, as is, or amended if fn above mutates it
+            return sc; // the value of sc is returned, as is, or amended if fn above that checks the answer is correct mutates it
         }
     }
     var keepScore = score(); // keepScore is the function returned by the score function
