@@ -2,9 +2,61 @@
 // BUDGET CONTROLLER
 var budgetController = (function(){
 
-	// some code
+	var Expense = function(id, description, value){
+		this.id = id;
+		this. description = description;
+		this.value = value;
+	};
+
+	var Income = function(id, description, value){
+		this.id = id;
+		this. description = description;
+		this.value = value;
+	};
+
+	var data = {
+		allItems: {
+			expense: [],
+			income: []
+		},
+		totals: {
+			expense: 0,
+			income: 0
+		}
+	};
+
+	return {
+		addItem: function(type, des, val){
+			var newItem, ID;
+			// create new ID
+			if(data.allItems[type].length > 0){
+				ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
+			} else {
+				ID = 0;
+			}
+
+			// create new item based on income or expense type
+			if(type === 'expense'){
+				newItem = new Expense(ID, des, val);
+			} else if(type === 'income'){
+				newItem = new Income(ID, des, val);
+			}
+			
+			// push it do our data structure
+			data.allItems[type].push(newItem);
+
+			// return the new element
+			return newItem;
+
+		},
+
+		testing: function(){
+			console.log(data);
+		}
+	};
 
 })();
+
 
 // UI CONTROLLER
 var UIController = (function(){
@@ -13,9 +65,9 @@ var UIController = (function(){
 		inputType: '.add__type',
 		inputDescription: '.add__description',
 		inputValue: '.add__value',
-		inputButton: '.add__btn', 
+		inputButton: '.add__btn' 
 
-	}
+	};
 
 	return {
 		getInput: function() {
@@ -27,7 +79,7 @@ var UIController = (function(){
 
 		},
 
-		getDOMStrings: function(){
+		getDOMStrings: function(){ 
 			return DOMStrings;
 		}
 	};
@@ -39,7 +91,7 @@ var controller = (function(budgetCtrl, UICtrl){
 
 	var setupEventListeners = function(){
 
-		var DOM = UIController.getDOMStrings();
+		var DOM = UICtrl.getDOMStrings();
 
 		document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
 
@@ -53,13 +105,16 @@ var controller = (function(budgetCtrl, UICtrl){
 	};
 
 	var ctrlAddItem = function(){
+		var input, newItem;
+
 
 		// 1. get filled input data
 
-		var input = UICtrl.getInput();
+		input = UICtrl.getInput();
 		console.log(input);
 
 		// 2. add item to budget controller
+		newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
 		// 3. add the new item to the UI
 
