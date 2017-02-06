@@ -43,7 +43,7 @@ var budgetController = (function(){
 			var newItem, ID;
 			// create new ID
 			if(data.allItems[type].length > 0){
-				ID = data.allItems[type][data.allItems[type].length - 1].id + 1; // -1 to get last index id
+				ID = data.allItems[type][data.allItems[type].length - 1].id + 1; // -1 to get last index id. this function is creating an array of items with unique numbers, even if items get deleted the numbers will increase from the last array item added
 			} else {
 				ID = 0;
 			}
@@ -62,6 +62,25 @@ var budgetController = (function(){
 			return newItem; // returns the object from the constructor to be used in  addListItem() in global app controller
 		},
 
+		deleteItem: function (type, id) {
+			var ids, index;
+
+			// ids = [1 2 3 6 8]
+
+			ids = data.allItems[type].map(function(current){
+				return current.id;
+			}); // creates new array of all current array items that is what map does, loops over an array
+
+			index = ids.indexOf(id); // finds the index position of a value passed to the id argument of the function
+
+			if(index !== -1){
+
+				data.allItems[type].splice(index, 1);
+
+			}
+
+		},
+
 		calculateBudget: function (){
 
 			// calculate total income and expenses
@@ -78,8 +97,6 @@ var budgetController = (function(){
 			} else {
 				data.percentage = -1;
 			}
-
-			
 
 		},
 
@@ -109,7 +126,12 @@ var UIController = (function(){
 		inputValue: '.add__value',
 		inputButton: '.add__btn',
 		incomeContainer: '.income__list',
-		expensesContainer: '.expenses__list'
+		expensesContainer: '.expenses__list',
+		budgetLabel: '.budget__value',
+		incomeLabel: '.budget__income--value',
+		expenseLabel: '.budget__expenses--value',
+		percentageLabel: '.budget__expenses--percentage',
+		container: '.container'
 
 	};
 
@@ -146,19 +168,43 @@ var UIController = (function(){
 
 		},
 
+		deleteListItem: function (selectorID) {
+
+			var el = document.getElementById(selectorID);
+
+			el.parentNode.removeChild(el) // just a weird thing with js DOM manipulation. you can only remove a child, so we have to jump up to it's parent node, then remove child (el)
+
+		},
+
 		clearFields: function(){
 			var fields, fieldsArr;
 
 			fields = document.querySelectorAll(DOMStrings.inputDescription + ', ' + DOMStrings.inputValue);
 
 			fieldsArr = Array.prototype.slice.call(fields);
+			// using .call() calls a function on an argument, in this case a list. tricking the parser into treating it as an array
 
 			fieldsArr.forEach(function(current, index, array){
-				// forEach() loops over an array, callback functions to this accept three args, the current value of the array item, the index of that item and the array itself, in this case fieldsArr
+			// forEach() loops over an array, callback functions to this accept three args, the current value of the array item, the index of that item and the array itself, in this case fieldsArr
 				current.value = "";
 			});
 
 			fieldsArr[0].focus();
+
+		},
+
+		displayBudget: function (obj) {
+
+			document.querySelector(DOMStrings.budgetLabel).textContent = obj.budget;
+			document.querySelector(DOMStrings.incomeLabel).textContent = obj.totalInc;
+			document.querySelector(DOMStrings.expenseLabel).textContent = obj.totalExp;
+			
+
+			if(obj.percentage > 0) {
+				document.querySelector(DOMStrings.percentageLabel).textContent = obj.percentage + '%';
+			} else {
+				document.querySelector(DOMStrings.percentageLabel).textContent = '---';
+			}
 
 		},
 
@@ -186,6 +232,8 @@ var controller = (function(budgetCtrl, UICtrl){
 			}
 
 		});
+
+		document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
 	};
 
 	var updateBudget = function() {
@@ -194,14 +242,13 @@ var controller = (function(budgetCtrl, UICtrl){
 		budgetCtrl.calculateBudget();
 
 		// 2. return the budget
-		var budget = budgetCtrl.getBudget();
+		var budget = budgetCtrl.getBudget(); // getBudget() returns items from data structure
 		// 3. display the budget on the UI
-		console.log(budget);
+		UICtrl.displayBudget(budget);
 	};
 
 	var ctrlAddItem = function(){
 		var input, newItem;
-
 
 		// 1. get filled input data
 
@@ -226,9 +273,38 @@ var controller = (function(budgetCtrl, UICtrl){
 
 	};
 
+	var ctrlDeleteItem = function(event) {
+		var itemID, splitID, type, ID;
+
+		itemID = event.target.parentNode.parentNode.parentNode.parentNode.id; // event delegation is to thank for selecting the clicked on item within the DOM lost of items
+
+		if(itemID) {
+
+			// inc-1
+
+			splitID = itemID.split('-'); // split() splits at a designated character. An array is returned of items either side of the character and that character is removed
+			type = splitID[0];
+			ID = parseInt(splitID[1]);
+
+			// 1. delete item from data structure
+			budgetCtrl.deleteItem(type, ID);
+			// 2. delete item from UI
+			UICtrl.deleteListItem(itemID);
+			// 3. update and show new budget
+			updateBudget();
+
+		}
+	};
+
 	return {
 		init: function(){
 			setupEventListeners();
+			
+			UICtrl.displayBudget({budget: 0,
+				totalInc: 0,
+				totalExp: 0,
+				percentage: 0
+			});
 		}
 	};
 
