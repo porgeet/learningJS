@@ -265,7 +265,7 @@ var UIController = (function(){
 
 			nodeListForEach(fields, function(current, index){
 
-			if(percentages[index] > 0) { // if the array returned to the var percentages by getPercentages() exists
+			if(percentages[index] > 0) { // if percentages[index], that is the value of percentages at the index position [index] is greater than 0
 			 	current.textContent = percentages[index] + "%"; // add the value at the current position in the fields node list with a % sign
 			 } else {
 			 	current.textContent = "---"; // else add this string
