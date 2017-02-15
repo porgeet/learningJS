@@ -15,7 +15,7 @@ var budgetController = (function(){
 		} else {
 			this.percentage = -1;
 		}
-		//  calculate the value of the individual object's percentage based on what it is in relation to the current income. It then updates the objects percentage property
+		// calculate the value of the individual object's percentage based on what it is in relation to the current total income. It then updates the objects percentage property
 	};
 
 	Expense.prototype.getPercentage = function() {
@@ -128,13 +128,13 @@ var budgetController = (function(){
 
 			data.allItems.expense.forEach(function(cur){
 				cur.calcPercentage(data.totals.income);
-			}); // loops over all expenses and runs the calcPercentage() function, updating the percentage of all instances of the Expenses object
+			}); // loops over all expenses and runs the calcPercentage() method, updating the percentage of all instances of the Expenses object. Until this calculatePercentages() is called all objects have no percentage property
 
 		},
 
 		getPercentages: function (){
 			var allPercentages = data.allItems.expense.map(function (cur){
-				return cur.getPercentage();
+				return cur.getPercentage(); // .map() returns a new array filled with the result of iterating over expense and running the getPercentage() method, which itself returns the percentage of an expense objects
 			});
 
 			return allPercentages; // returns an array with all percentages in. NOT SURE WHY YET 7/2/17
@@ -171,7 +171,8 @@ var UIController = (function(){
 		incomeLabel: '.budget__income--value',
 		expenseLabel: '.budget__expenses--value',
 		percentageLabel: '.budget__expenses--percentage',
-		container: '.container'
+		container: '.container',
+		expensesPercLabel: '.item__percentage'
 
 	};
 
@@ -248,6 +249,32 @@ var UIController = (function(){
 
 		},
 
+		displayPercentages: function (percentages){
+
+			var fields = document.querySelectorAll(DOMStrings.expensesPercLabel); // returns a node list
+
+			console.log(fields);
+
+			var nodeListForEach = function(list, callback){
+
+				for (var i = 0; i < list.length; i++){
+					callback(list[i], i);
+				}
+
+			}; // function that loops over a node list and fires a callback function on each iteration
+
+			nodeListForEach(fields, function(current, index){
+
+			if(percentages[index] > 0) { // if the array returned to the var percentages by getPercentages() exists
+			 	current.textContent = percentages[index] + "%"; // add the value at the current position in the fields node list with a % sign
+			 } else {
+			 	current.textContent = "---"; // else add this string
+			 } 
+
+			}); // nodeListForEach() called with the node list of expenses as first arg and a callback function
+
+		},
+
 		getDOMStrings: function(){ 
 			return DOMStrings;
 		}
@@ -292,9 +319,10 @@ var controller = (function(budgetCtrl, UICtrl){
 		// 1. calculate the percentages
 		budgetCtrl.calculatePercentages();
 		// 2. read them from the budget controller
-		var percentages = budgetCtrl.getPercentages();
+		var percentages = budgetCtrl.getPercentages(); // is an array with all percentages in
 		// 3. update the UI with the new percentages
 		console.log(percentages);
+		UICtrl.displayPercentages(percentages);
 	};
 
 	var ctrlAddItem = function(){
@@ -329,7 +357,7 @@ var controller = (function(budgetCtrl, UICtrl){
 	var ctrlDeleteItem = function(event) {
 		var itemID, splitID, type, ID;
 
-		itemID = event.target.parentNode.parentNode.parentNode.parentNode.id; // event delegation is to thank for selecting the clicked on item within the DOM lost of items
+		itemID = event.target.parentNode.parentNode.parentNode.parentNode.id; // event delegation is to thank for selecting the clicked on item within the DOM list of items
 
 		if(itemID) {
 
