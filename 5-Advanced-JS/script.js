@@ -602,7 +602,7 @@ c) correct answer (I would use a number for this)
             return sc; // the value of sc is returned, as is, or amended if fn above that checks the answer is correct mutates it
         }
     }
-    var keepScore = score(); // keepScore is the function returned by the score function
+    var keepScore = score(); // keepScore is the anon function returned by the score function
     
     
     function nextQuestion() {
