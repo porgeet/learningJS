@@ -176,6 +176,36 @@ var UIController = (function(){
 
 	};
 
+	var formatNumber = function(num, type){
+			var numSplit, int, dec, sign;
+
+			/*  
+			+ or - before the number
+			exactly 2 decimal places
+			comma separating thousands
+
+			2130.4567 -> + 2,130.46 round up
+			2000 - > + 2,000.00
+			*/
+
+			num = Math.abs(num); //mutating the value of the num argument/var to be the number sans + or - symbols
+			num = num.toFixed(2); // toFixed() is a method of the number prototype, like a method applied to a string. It adds two decimal places on any number the method is called on. The result is a STRING
+
+			numSplit = num.split('.');
+
+			int = numSplit[0];
+
+			if(int.length > 3){
+				int = int.substr(0, int.length - 3) + ',' + int.substr(int.length - 3, 3); //input 2310, output 2,310
+			}
+
+			dec = numSplit[1];
+
+			return (type === 'expense' ? '-' : '+') + ' ' + int + '.' + dec;
+
+
+		};
+
 	return {
 		getInput: function() {
 			return {
@@ -202,7 +232,7 @@ var UIController = (function(){
 			// replace the placeholder text with actual data
 			newHTML = html.replace('%id%', obj.id);
 			newHTML = newHTML.replace('%description%', obj.description);
-			newHTML = newHTML.replace('%value%', obj.value);
+			newHTML = newHTML.replace('%value%', formatNumber(obj.value, type));
 
 			// insert the HTML into the DOM
 			document.querySelector(element).insertAdjacentHTML('beforeend', newHTML);
@@ -235,10 +265,13 @@ var UIController = (function(){
 		},
 
 		displayBudget: function (obj) {
+			var type;
 
-			document.querySelector(DOMStrings.budgetLabel).textContent = obj.budget;
-			document.querySelector(DOMStrings.incomeLabel).textContent = obj.totalInc;
-			document.querySelector(DOMStrings.expenseLabel).textContent = obj.totalExp;
+			obj.budget > 0 ? type = 'income' : type = 'expense';
+
+			document.querySelector(DOMStrings.budgetLabel).textContent = formatNumber(obj.budget, type);
+			document.querySelector(DOMStrings.incomeLabel).textContent = formatNumber(obj.totalInc, 'income');
+			document.querySelector(DOMStrings.expenseLabel).textContent = formatNumber(obj.totalExp, 'expense');
 			
 
 			if(obj.percentage > 0) {
@@ -334,7 +367,7 @@ var controller = (function(budgetCtrl, UICtrl){
 
 		if(input.description !== "" && !isNaN(input.value) && input.value > 0){
 
-			// 2. add item to budget controller
+		// 2. add item to budget controller
 		newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
 		// 3. add the new item to the UI
