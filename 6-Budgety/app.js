@@ -172,7 +172,8 @@ var UIController = (function(){
 		expenseLabel: '.budget__expenses--value',
 		percentageLabel: '.budget__expenses--percentage',
 		container: '.container',
-		expensesPercLabel: '.item__percentage'
+		expensesPercLabel: '.item__percentage',
+		dateLabel: '.budget__title--month'
 
 	};
 
@@ -308,6 +309,30 @@ var UIController = (function(){
 
 		},
 
+		displayMonth: function () {
+			var now, year, month, months;
+
+			now = new Date(); // the Date obj without arguments returns the current date of the users local machine, passing arguments can return an object with a set date (2017, 11, 25) would be Christmas 2017, as the month is 0 based, 11 is 12 - December 
+
+			year = now.getFullYear();
+			month = now.getMonth();
+			months = [	"January", 
+						"February", 
+						"March", 
+						"April", 
+						"May", 
+						"June", 
+						"July", 
+						"August", 
+						"September", 
+						"October", 
+						"November", 
+						"December"
+					];
+			document.querySelector(DOMStrings.dateLabel).textContent =  months[month] + " " + year;
+
+		},
+
 		getDOMStrings: function(){ 
 			return DOMStrings;
 		}
@@ -416,6 +441,7 @@ var controller = (function(budgetCtrl, UICtrl){
 		init: function(){
 			setupEventListeners();
 			
+			UICtrl.displayMonth();
 			UICtrl.displayBudget({budget: 0,
 				totalInc: 0,
 				totalExp: 0,
